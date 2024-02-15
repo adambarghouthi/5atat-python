@@ -85,13 +85,13 @@ def get_insta_products():
         json_response = json.loads(response.choices[0].message.content)
 
         products.append(Product(
-            name=json_response.name,
-            description=json_response.description,
-            price=json_response.price,
-            sizes=json_response.sizes,
-            colours=json_response.colours,
-            active=json_response.active,
-            images=images
+            name=json_response['name'],
+            description=json_response['description'],
+            price=json_response['price'],
+            sizes=json_response['sizes'],
+            colours=json_response['colours'],
+            active=json_response['active'],
+            images=media
         ))
 
         count += 1
