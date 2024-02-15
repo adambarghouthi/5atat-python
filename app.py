@@ -63,13 +63,13 @@ def get_insta_products():
         if post.is_video or count > 3:
             continue
 
-        media = []
+        images = []
 
         if post.mediacount > 1:
             sidecar_nodes = post.get_sidecar_nodes()
             for node in sidecar_nodes:
                 if not node.is_video:
-                    media.append(node.url)
+                    media.append(node.display_url)
         else:
             media.append(post.url)
 
@@ -91,7 +91,7 @@ def get_insta_products():
             sizes=json_response.sizes,
             colours=json_response.colours,
             active=json_response.active,
-            images=media
+            images=images
         ))
 
         count += 1
