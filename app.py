@@ -59,7 +59,7 @@ def get_insta_products():
     count = 0
 
     for post in profile.get_posts():
-        if post.is_video:
+        if post.is_video or count > 3:
             continue
 
         media = []
