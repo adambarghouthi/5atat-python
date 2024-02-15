@@ -66,7 +66,7 @@ def get_insta_products():
 
         if post.mediacount > 1:
             sidecar_nodes = post.get_sidecar_nodes()
-            for (node in sidecar_nodes):
+            for node in sidecar_nodes:
                 if not node.is_video:
                     media.append(node.url)
         else:
