@@ -69,9 +69,9 @@ def get_insta_products():
             sidecar_nodes = post.get_sidecar_nodes()
             for node in sidecar_nodes:
                 if not node.is_video:
-                    media.append(node.display_url)
+                    images.append(node.display_url)
         else:
-            media.append(post.url)
+            images.append(post.url)
 
         caption = re.sub(r"[#|@]([a-zA-Z0-9-_.]+)", "", post.caption)
         response = openai_client.chat.completions.create(
