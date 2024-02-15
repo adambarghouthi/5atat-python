@@ -91,7 +91,7 @@ def get_insta_products():
             sizes=json_response['sizes'],
             colours=json_response['colours'],
             active=json_response['active'],
-            images=media
+            images=images
         ))
 
         count += 1
