@@ -1,6 +1,7 @@
 import os
 import re
 import json
+import instaloader
 from flask import Flask, jsonify, request
 from openai import OpenAI
 
