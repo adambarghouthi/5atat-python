@@ -12,16 +12,6 @@ openai_client = OpenAI(
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
 
-class Product:
-    def __init__(self, name, description, price, sizes, colours, active, images):
-        self.name = name
-        self.description = description
-        self.price = price
-        self.sizes = sizes
-        self.colours = colours
-        self.active = active
-        self.images = images
-
 @app.route('/', methods=["GET"])
 def hello_world():
     return jsonify({
@@ -84,15 +74,15 @@ def get_insta_products():
         )
         json_response = json.loads(response.choices[0].message.content)
 
-        products.append(Product(
-            name=json_response['name'],
-            description=json_response['description'],
-            price=json_response['price'],
-            sizes=json_response['sizes'],
-            colours=json_response['colours'],
-            active=json_response['active'],
-            images=images
-        ))
+        products.append({
+            'name': json_response['name'],
+            'description': json_response['description'],
+            'price': json_response['price'],
+            'sizes': json_response['sizes'],
+            'colours': json_response['colours'],
+            'active': json_response['active'],
+            'images': images
+        })
 
         count += 1
     
