@@ -15,7 +15,7 @@ openai_client = OpenAI(
 )
 
 @app.route('/', methods=["GET"])
-@cross_origin()
+@cross_origin(origin='*')
 def hello_world():
     return jsonify({
         'status': 200,
@@ -23,7 +23,7 @@ def hello_world():
     })
 
 @app.route('/get-insta-products', methods=["GET"])
-@cross_origin()
+@cross_origin(origin='*')
 def get_insta_products():
     args = request.args
     insta_user = args.get("insta_user")
@@ -91,4 +91,7 @@ def get_insta_products():
         'status': 200,
         'products': products
     })
+
+if __name__ == "__main__":
+  app.run(host='0.0.0.0', port=3000, debug=True)
 
