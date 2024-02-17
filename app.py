@@ -4,10 +4,8 @@ import json
 import instaloader
 from flask import Flask, jsonify, request
 from openai import OpenAI
-from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-cors = CORS(app)
 
 openai_client = OpenAI(
     # This is the default and can be omitted
@@ -15,15 +13,15 @@ openai_client = OpenAI(
 )
 
 @app.route('/', methods=["GET"])
-@cross_origin(origin='*')
 def hello_world():
-    return jsonify({
+    response = jsonify({
         'status': 200,
         'message': 'Welcome to 5atat Python Functions'
     })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/get-insta-products', methods=["GET"])
-@cross_origin(origin='*')
 def get_insta_products():
     args = request.args
     insta_user = args.get("insta_user")
@@ -87,11 +85,10 @@ def get_insta_products():
             'images': images
         })
     
-    return jsonify({
+    response = jsonify({
         'status': 200,
         'products': products
     })
-
-if __name__ == "__main__":
-  app.run(host='0.0.0.0', port=3000, debug=True)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
