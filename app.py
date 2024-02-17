@@ -4,8 +4,10 @@ import json
 import instaloader
 from flask import Flask, jsonify, request
 from openai import OpenAI
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
 
 openai_client = OpenAI(
     # This is the default and can be omitted
@@ -13,6 +15,7 @@ openai_client = OpenAI(
 )
 
 @app.route('/', methods=["GET"])
+@cross_origin()
 def hello_world():
     return jsonify({
         'status': 200,
@@ -20,6 +23,7 @@ def hello_world():
     })
 
 @app.route('/get-insta-products', methods=["GET"])
+@cross_origin()
 def get_insta_products():
     args = request.args
     insta_user = args.get("insta_user")
@@ -47,10 +51,9 @@ def get_insta_products():
     profile = instaloader.Profile.from_username(L.context, insta_user)
 
     products = []
-    count = 0
 
     for post in profile.get_posts():
-        if post.is_video or count > 3:
+        if post.is_video:
             continue
 
         images = []
@@ -83,8 +86,6 @@ def get_insta_products():
             'active': json_response['active'],
             'images': images
         })
-
-        count += 1
     
     return jsonify({
         'status': 200,
